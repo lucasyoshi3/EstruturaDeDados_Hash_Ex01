@@ -12,7 +12,7 @@ public class Main {
 		
 		System.out.println("Inserir nome: ");
 //		String nome;
-//		for(int i=1;i<5;i++) {
+//		for(int i=1;i<26;i++) {
 //			nome=sc.next();
 //			tabela.put(nome, i);
 //		}
@@ -23,7 +23,7 @@ public class Main {
 	    tabela.put("Valdemar", 22);
 	    tabela.put("Uberlandiano", 21);
 	    tabela.put("Tayse", 20);
-	    tabela.put("Sérgio", 19);
+	    tabela.put("SÃ©rgio", 19);
 	    tabela.put("Roberto", 18);
 	    tabela.put("Quentin", 17);
 	    tabela.put("Patricia", 16);
@@ -51,7 +51,7 @@ public class Main {
 	    			+ "1)inserir um novo nome na estrutura de dados\r\n"
 		    		+ "2)pesquisar se um determinado nome consta na estrutura de dados\r\n"
 		    		+ "3)remover um dado nome da estrutura de dados\r\n"
-		    		+ "4)verificar se a estrutura de dados está cheia\r\n"
+		    		+ "4)verificar se a estrutura de dados estÃ¡ cheia\r\n"
 		    		+ "5)imprimir todos os dados da estrutura de dados\r\n"
 		    		+ "qualquer numero)Fim");
 		    opcao=sc.nextInt();
