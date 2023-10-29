@@ -1,57 +1,96 @@
 package controller;
-import java.util.HashMap;
-import java.util.Map;
+
+import java.util.Arrays;
 import java.util.Scanner;
-import java.util.TreeMap;
+
+import model.Hash;
 
 public class CtrlHash {
 	Scanner sc=new Scanner(System.in);
-	public void inserirNome(HashMap<String, Integer> tabela) {
-		// TODO Auto-generated method stub
+	int qntNomes=26;
+	Hash []tabela=new Hash[qntNomes];
+	
+	
+	public CtrlHash() {
+		for(int i=0;i<qntNomes;i++) {
+			tabela[i]=new Hash();
+		}
+	}
+	
+	public void inserirNome() {
+		String[] listaNomes = {
+	            "Isaac", "Zachary", "Michael", "Alice", "Bob", "Carol", "David", "Eve", "Frank", "Grace",
+	            "Hannah", "Linda", "Nancy", "Oliver", "Pamela", "Quincy", "Rachel", "Samuel", "Tina",
+	            "Ulysses", "Victoria", "Walter", "Xena", "Yvonne", "Roberto", "Wesley"
+	        };
 		
-		String nome;
-		String opcao="s";
-		int i=26;
-		System.out.println("Novo nome para inserir: ");
-		while(opcao.equals("s")|opcao.equals("S")) {
-			nome=sc.next();
-			tabela.put(nome, i);
-			System.out.println("Deseja inserir outro nome? S/N");
-			opcao=sc.next();
+		for(int i=0;i<qntNomes;i++) {
+			tabela[i].nome=listaNomes[i];
+			tabela[i].chave=qntDeLetras(tabela[i].nome);
 		}
+		ordemAlfa();
 	}
-
-	public boolean pesquisarNome(HashMap<String, Integer> tabela) {
-		// TODO Auto-generated method stub
-		System.out.println("Nome para pesquisar: ");
+	
+	public void inserirNovoNome() {
+		if(cheia()) {
+			System.out.println("A tabela esta cheia!");
+			return;
+		}
+		System.out.println("Nome:");
 		String nome=sc.next();
-		return tabela.containsKey(nome);
+		for(int i=0;i<qntNomes;i++) {
+			if(tabela[i].nome.equals("")) {
+				tabela[i].nome=nome;
+				tabela[i].chave=qntNomes;
+				break;
+			}
+		}
+		ordemAlfa();
+	}
+	
+	public void pesquisarNome(String nome){
+		for(Hash nomeTabela:tabela) {
+			if(nomeTabela.nome.equals(nome)) {
+				System.out.println("O nome esta na lista!");
+				return;
+			}
+		}
+		System.out.println("O nome nao esta na lista");
+	}
+	
+	public void remover(String nome) {
+		for(int i=0;i<qntNomes;i++) {
+			if(tabela[i].nome.equals(nome)) {
+				tabela[i].nome="";
+				tabela[i].chave=0;
+				return;
+			}
+		}
+		System.out.println("O nome não existe na tabela!");
+	}
+	
+	private int qntDeLetras(String nome) {
+		// TODO Auto-generated method stub
+		if(nome.equals("")) return 0;
+		
+		char []nomeChar=nome.toCharArray();
+		return nomeChar.length;
 	}
 
-	public void remover(HashMap<String, Integer> tabela) {
-		// TODO Auto-generated method stub
-		String opcao="s";
-		while(opcao.equals("s")) {
-			System.out.println("Nome que deseja remover:");
-			String nome=sc.next();
-			tabela.remove(nome);
-			System.out.println("Deseja remover outro nome? s/n");
-			opcao=sc.next();
+	public void ordemAlfa() {
+		Arrays.sort(tabela, (p1, p2) -> p1.nome.compareTo(p2.nome));
+	}
+	
+	public void imprimir() {
+		for(Hash hashTabela:tabela) {
+			if(!hashTabela.nome.equals("")) System.out.println("Chave: "+hashTabela.chave+"; nome: "+hashTabela.nome);
 		}
 	}
-
-	public String verificarCheia(HashMap<String, Integer> tabela, int tamanhoOriginal) {
-		// TODO Auto-generated method stub
-		int tamanhoTabela=tabela.size();
-		if(tamanhoTabela >= tamanhoOriginal) return "A matriz esta cheia";
-		else return "A matriz nao esta cheia";
+	
+	public boolean cheia() {
+		for(Hash hashTabela:tabela) {
+			if(hashTabela.nome.equals("")) return false;
+		}
+		return true;
 	}
-
-	public void imprimir(HashMap<String, Integer> tabela) {
-		// TODO Auto-generated method stub
-		Map<String, Integer> ordemAlfa = new TreeMap<String, Integer>(tabela);
-		ordemAlfa = new TreeMap<String, Integer>(tabela);
-	    ordemAlfa.keySet().forEach(System.out::println);
-	}
-
 }
